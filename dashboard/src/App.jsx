@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Routes, Route} from "react-router-dom";
 import Dashboard from "./dashboard/page";
+import Layout from "./layout/layout"
 
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -23,7 +24,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <Routes>
-          <Route path="/" element={<Dashboard mode={mode} setMode={setMode}/>}/>
+          <Route path="/" element={<Layout mode={mode} setMode={setMode}><Dashboard mode={mode}/></Layout>}/>
         </Routes>
       </CssBaseline>
     </ThemeProvider>

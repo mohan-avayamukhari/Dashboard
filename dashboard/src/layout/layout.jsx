@@ -3,14 +3,15 @@ import Topbar from "../layout/components/topbar";
 import Sidebar from "./components/sidebar";
 
 
-const Layout = ({mode, setMode}) => {
+const Layout = ({mode, setMode, children}) => {
   return(
     <Box>
        <Box display={"block"}>
         <Topbar mode={mode} setMode={setMode}/>
         </Box>
-        <Box position={"fixed"}>
+        <Box position={"fixed"} display={"flex"} width={"100%"}>
           <Sidebar/>
+          {children}
         </Box>
     </Box>
   )

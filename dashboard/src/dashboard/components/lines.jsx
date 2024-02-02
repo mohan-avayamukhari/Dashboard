@@ -1,207 +1,341 @@
-import { useState, useEffect } from 'react';
-import { Line } from '@ant-design/plots';
+import {ResponsiveLine} from "@nivo/line"
+import { Box } from "@mui/material"
 
-const DemoLine = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    asyncFetch();
-  }, []);
-
-  const asyncFetch = () => {
-    fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac5698.json')
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.log('fetch data failed', error);
-      });
-  };
-  const config = {
-    data: data
-      .slice(data.length - 90, data.length)
-      .filter((item) => item.category === 'Gas fuel' || item.category === 'Cement production'),
-    xField: 'year',
-    yField: 'value',
-    seriesField: 'category',
-    // X 轴相关配置
-    xAxis: {
-      nice: true,
-      // tickCount: 8,
-      // 文本标签
-      label: {
-        // autoRotate: false,
-        rotate: Math.PI / 6,
-        offset: 10,
-        style: {
-          fill: '#aaa',
-          fontSize: 12,
-        },
-        formatter: (name) => name,
-      },
-      title: {
-        text: '年份',
-        style: {
-          fontSize: 16,
-        },
-      },
-      // 坐标轴线的配置项 null 表示不展示
-      line: {
-        style: {
-          stroke: '#aaa',
-        },
-      },
-      tickLine: {
-        style: {
-          lineWidth: 2,
-          stroke: '#aaa',
-        },
-        length: 5,
-      },
-      grid: {
-        line: {
-          style: {
-            stroke: '#ddd',
-            lineDash: [4, 2],
+const MyResponsiveLine = ({mode}) => (
+  <Box width={"100%"} height={"20rem"} paddingLeft={"4rem"}>
+    <ResponsiveLine
+        data={[
+          {
+            "id": "japan",
+            "color": "hsl(351, 70%, 50%)",
+            "data": [
+              {
+                "x": "Jan",
+                "y": 267
+              },
+              {
+                "x": "feb",
+                "y": 196
+              },
+              {
+                "x": "mar",
+                "y": 1
+              },
+              {
+                "x": "apr",
+                "y": 79
+              },
+              {
+                "x": "may",
+                "y": 89
+              },
+              {
+                "x": "jun",
+                "y": 265
+              },
+              {
+                "x": "jul",
+                "y": 278
+              },
+              {
+                "x": "aug",
+                "y": 11
+              },
+              {
+                "x": "sep",
+                "y": 29
+              },
+              {
+                "x": "oct",
+                "y": 172
+              },
+              {
+                "x": "nov",
+                "y": 288
+              },
+              {
+                "x": "dec",
+                "y": 205
+              }
+            ]
           },
-        },
-        alternateColor: 'rgba(0,0,0,0.05)',
-      },
-    },
-    // Y 轴相关配置
-    yAxis: {
-      // max: 3000,
-      // 文本标签
-      label: {
-        autoRotate: false,
-        style: {
-          fill: '#aaa',
-          fontSize: 12,
-        },
-        // 数值格式化为千分位
-        formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
-      },
-      title: {
-        text: '排放量(顿)',
-        style: {
-          fontSize: 16,
-        },
-      },
-      // 坐标轴线的配置项 null 表示不展示
-      line: {
-        style: {
-          stroke: '#aaa',
-        },
-      },
-      tickLine: {
-        style: {
-          lineWidth: 2,
-          stroke: '#aaa',
-        },
-        length: 5,
-      },
-      grid: {
-        line: {
-          style: {
-            stroke: '#ddd',
-            lineDash: [4, 2],
+          {
+            "id": "france",
+            "color": "hsl(154, 70%, 50%)",
+            "data": [
+              {
+                "x": "Jan",
+                "y": 86
+              },
+              {
+                "x": "feb",
+                "y": 59
+              },
+              {
+                "x": "mar",
+                "y": 234
+              },
+              {
+                "x": "apr",
+                "y": 235
+              },
+              {
+                "x": "may",
+                "y": 8
+              },
+              {
+                "x": "jun",
+                "y": 110
+              },
+              {
+                "x": "jul",
+                "y": 26
+              },
+              {
+                "x": "aug",
+                "y": 246
+              },
+              {
+                "x": "sep",
+                "y": 0
+              },
+              {
+                "x": "oct",
+                "y": 155
+              },
+              {
+                "x": "nov",
+                "y": 163
+              },
+              {
+                "x": "dec",
+                "y": 113
+              }
+            ]
           },
-        },
-        alternateColor: 'rgba(0,0,0,0.05)',
-      },
-    },
-    // label
-    label: {
-      layout: [
-        {
-          type: 'hide-overlap',
-        },
-      ],
-      // 隐藏重叠label
-      style: {
-        textAlign: 'right',
-      },
-      formatter: (item) => item.value,
-    },
-    // point
-    point: {
-      size: 5,
-      style: {
-        lineWidth: 1,
-        fillOpacity: 1,
-      },
-      shape: (item) => {
-        if (item.category === 'Cement production') {
-          return 'circle';
-        }
+          {
+            "id": "us",
+            "color": "hsl(245, 70%, 50%)",
+            "data": [
+              {
+                "x": "Jan",
+                "y": 203
+              },
+              {
+                "x": "feb",
+                "y": 258
+              },
+              {
+                "x": "mar",
+                "y": 263
+              },
+              {
+                "x": "apr",
+                "y": 268
+              },
+              {
+                "x": "may",
+                "y": 70
+              },
+              {
+                "x": "jun",
+                "y": 208
+              },
+              {
+                "x": "jul",
+                "y": 47
+              },
+              {
+                "x": "aug",
+                "y": 221
+              },
+              {
+                "x": "sep",
+                "y": 1
+              },
+              {
+                "x": "oct",
+                "y": 145
+              },
+              {
+                "x": "nov",
+                "y": 120
+              },
+              {
+                "x": "dec",
+                "y": 211
+              }
+            ]
+          },
+          {
+            "id": "germany",
+            "color": "hsl(323, 70%, 50%)",
+            "data": [
+              {
+                "x": "Jan",
+                "y": 104
+              },
+              {
+                "x": "feb",
+                "y": 273
+              },
+              {
+                "x": "mar",
+                "y": 245
+              },
+              {
+                "x": "apr",
+                "y": 212
+              },
+              {
+                "x": "may",
+                "y": 89
+              },
+              {
+                "x": "jun",
+                "y": 269
+              },
+              {
+                "x": "jul",
+                "y": 97
+              },
+              {
+                "x": "aug",
+                "y": 35
+              },
+              {
+                "x": "sep",
+                "y": 210
+              },
+              {
+                "x": "oct",
+                "y": 215
+              },
+              {
+                "x": "nov",
+                "y": 263
+              },
+              {
+                "x": "dec",
+                "y": 133
+              }
+            ]
+          },
+          {
+            "id": "norway",
+            "color": "hsl(336, 70%, 50%)",
+            "data": [
+              {
+                "x": "Jan",
+                "y": 98
+              },
+              {
+                "x": "feb",
+                "y": 272
+              },
+              {
+                "x": "mar",
+                "y": 26
+              },
+              {
+                "x": "apr",
+                "y": 296
+              },
+              {
+                "x": "may",
+                "y": 239
+              },
+              {
+                "x": "jun",
+                "y": 268
+              },
+              {
+                "x": "jul",
+                "y": 20
+              },
+              {
+                "x": "aug",
+                "y": 27
+              },
+              {
+                "x": "sep",
+                "y": 240
+              },
+              {
+                "x": "oct",
+                "y": 9
+              },
+              {
+                "x": "nov",
+                "y": 91
+              },
+              {
+                "x": "dec",
+                "y": 198
+              }
+            ]
+          }
+        ]}
+        colors={{scheme: "category10"}}
+        theme={{
+          legends:{text:{fill: mode? "white":"black"}},
+          grid:{line:{stroke: mode? "": "white"}},
+          axis:{legend:{text:{fill:mode? "white":"black"}}, ticks:{text:{fill: mode? "white":"black"}}},
+          tooltip:{container:{backgroundColor:mode? "black":"white"}}
+        }}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        xScale={{ type: 'point' }}
+        yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false
+        }}
+        yFormat=" >-.2f"
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'transportation',
+            legendOffset: 36,
+            legendPosition: 'middle',
+        }}
+        axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'count',
+            legendOffset: -40,
+            legendPosition: 'middle'
+        }}
+        pointSize={10}
+        pointColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: 'serieColor' }}
+        pointLabelYOffset={-12}
+        useMesh={true}
+        legends={[
+            {
+                anchor: 'bottom-right',
+                direction: 'column',
+                justify: false,
+                translateX: 100,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemDirection: 'left-to-right',
+                itemWidth: 80,
+                itemHeight: 20,
+                itemOpacity: 0.75,
+                symbolSize: 12,
+                symbolShape: 'circle',
+                symbolBorderColor: 'rgba(0, 0, 0, .5)',
+            }
+        ]}
+    />
+  </Box>
+);
 
-        return 'diamond';
-      },
-    },
-    annotations: [
-      // 辅助线
-      {
-        type: 'line',
-        start: ['0%', '10%'],
-        end: ['100%', '10%'],
-        top: true,
-        style: {
-          stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
-          lineWidth: 2,
-        },
-      }, // 辅助区域
-      {
-        type: 'region',
-        start: ['0%', '0%'],
-        end: ['20%', '10%'],
-        top: true,
-        style: {
-          fill: '#1890ff',
-          fillOpacity: 1,
-          opacity: 1,
-        },
-      }, // 辅助文本
-      {
-        type: 'text',
-        position: ['10%', '5%'],
-        content: '二氧化碳排放量来源',
-        style: {
-          fill: '#fff',
-          fontSize: 12,
-          textAlign: 'center',
-          textBaseline: 'middle',
-          shadowColor: '#fff',
-          shadowOffsetX: 12,
-          shadowOffsetY: 12,
-          shadowBlur: 2,
-        },
-      }, // 辅助线
-      {
-        type: 'line',
-        start: ['min', 'median'],
-        end: ['max', 'median'],
-        style: {
-          stroke: 'Turquoise',
-          lineDash: [4, 2],
-        },
-      },
-    ],
-    legend: {
-      position: 'top-right',
-      itemName: {
-        style: {
-          fill: '#000',
-        },
-        formatter: (name) => name,
-      },
-    },
-    // 度量相关配置
-    meta: {
-      // year 对应 xField || yField
-      year: {
-        range: [0, 1],
-      },
-    },
-  };
-};
-
-export default DemoLine;
+export default MyResponsiveLine;
